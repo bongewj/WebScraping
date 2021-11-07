@@ -4,8 +4,6 @@ Created on Sun Aug  2 11:13:08 2020
 
 @author: Eugene
 """
-
-
 # -*- coding: utf-8 -*-
 import scrapy
 from datetime import date
@@ -16,9 +14,6 @@ from scrapy.shell import open_in_browser
 from urllib.parse import urljoin
 
 # google search specific for sembcorp marine
-#websites = ['https://www.google.com/search?q=sembcorp+marine&tbas=0&tbm=nws&tbas=0&source=lnt&sa=X&ved=0ahUKEwipu8-#1lpzrAhXeILcAHTSmD1UQpwUIIw&biw=958&bih=959&dpr=1', 
-#            'https://www.google.com/search?#q=sembcorp+marine&tbas=0&tbm=nws&source=lnt&tbs=ar:1&sa=X&ved=0ahUKEwjMgIGxlpzrAhUq4HMBHdNzB1Q4eBCnBQgj&biw=958&bih=959&dpr=1']
-
 websites = ['https://www.google.com/search?q=sembcorp+marine&biw=1421&bih=1441&tbm=nws&sxsrf=AOaemvIrHSAYUnAPPXZE48Pr8tmmG7Wf9Q%3A1636201107994&ei=k3KGYdWVPJmI4-EPhIq7wAU&oq=sembcorp+marine&gs_l=psy-ab.3...0.0.0.1382217.0.0.0.0.0.0.0.0..0.0....0...1c..64.psy-ab..0.0.0....0.fgzKudfqfXk']
 
 class GNewsSembMarineSpider(scrapy.Spider): 
@@ -29,7 +24,9 @@ class GNewsSembMarineSpider(scrapy.Spider):
     # to save scraped output as json
     custom_settings = {'FEED_FORMAT': 'json',
                        'FEED_URI': 'GNewsSembMarine.json'}
-        
+    
+    # use xpath to extract title, body, date published of search results. Run through a number of pages of search results using the next link.
+	
     def parse(self, response):
 
         title = response.xpath('//div[contains (@class, "BNeawe vvjwJb AP7Wnd")]/text()').extract()
